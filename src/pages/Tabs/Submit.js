@@ -1,14 +1,15 @@
 import React from 'react';
-import { IonPage, IonHeader, IonToolbar, IonTitle } from '@ionic/react';
+import { IonPage, IonContent } from '@ionic/react';
+import SmallHeader from '../../components/Headers/SmallHeader';
+import LargeHeader from '../../components/Headers/LargeHeader';
 
 function Submit() {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Submit</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      <SmallHeader title="Submit" />
+      <IonContent>
+        <LargeHeader title="Submit" />
+      </IonContent>
     </IonPage>
   );
 };

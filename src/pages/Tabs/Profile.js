@@ -1,14 +1,15 @@
 import React from 'react';
-import { IonPage, IonHeader, IonToolbar, IonTitle } from '@ionic/react';
+import { IonPage, IonContent } from '@ionic/react';
+import SmallHeader from '../../components/Headers/SmallHeader';
+import LargeHeader from '../../components/Headers/LargeHeader';
 
 function Profile() {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Profile</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      <SmallHeader title="Profile" />
+      <IonContent>
+        <LargeHeader title="Profile" />
+      </IonContent>
     </IonPage>
   );
 };
