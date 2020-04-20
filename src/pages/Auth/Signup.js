@@ -1,27 +1,55 @@
 import React from 'react';
-import { IonPage, IonContent, IonItem, IonLabel, IonInput, IonRow, IonCol, IonButton } from '@ionic/react';
+import { IonPage, IonContent, IonItem, IonLabel, IonInput, IonRow, IonCol, IonButton, IonLoading } from '@ionic/react';
 import NavHeader from '../../components/Headers/NavHeader';
+import { toast } from '../../helpers/toast';
+import useForm from '../../hooks/useForm';
+import validateSignup from '../../validators/validateSignup';
+import firebase from '../../firebase';
 
-function Signup() {
+const INITIAL_STATE = {
+  name: '',
+  email: '',
+  password: '',
+  password2: '',
+}
+
+function Signup(props) {
+  const { handleSubmit, handleChange, values, isSubmitting } = useForm(INITIAL_STATE, validateSignup, authenticateUser);
+  const [busy, setBusy] = React.useState(false);
+
+  async function authenticateUser() {
+    const { name, email, password } = values;
+    try {
+      await firebase.register(name, email, password);
+      toast('You have signed up successfully!');
+      props.history.push('/');
+    } catch (err) {
+      console.error('Authentication Error', err);
+      toast(err.message);
+    }
+    setBusy(false);
+  }
+
   return (
     <IonPage>
       <NavHeader title="Get Involved" />
+      <IonLoading message={"WAIT UP..."} isOpen={busy} />
       <IonContent>
         <IonItem lines="full">
           <IonLabel position="floating">Username</IonLabel>
-          <IonInput name="name" type="text" required></IonInput>
+          <IonInput name="name" type="text" value={values.name} onIonChange={handleChange} required></IonInput>
         </IonItem>
         <IonItem lines="full">
           <IonLabel position="floating">Email</IonLabel>
-          <IonInput name="email" type="email" required></IonInput>
+          <IonInput name="email" type="email" value={values.email} onIonChange={handleChange} required></IonInput>
         </IonItem>
         <IonItem lines="full">
           <IonLabel position="floating">Password</IonLabel>
-          <IonInput name="password" type="password" required></IonInput>
+          <IonInput name="password" type="password" value={values.password} onIonChange={handleChange} required></IonInput>
         </IonItem>
         <IonItem lines="full">
           <IonLabel position="floating">Confirm Password</IonLabel>
-          <IonInput name="password2" type="password" required></IonInput>
+          <IonInput name="password2" type="password" value={values.password2} onIonChange={handleChange} required></IonInput>
         </IonItem>
         <IonRow>
           <IonCol>
@@ -29,6 +57,8 @@ function Signup() {
               type="submit"
               color="primary"
               expand="block"
+              onClick={handleSubmit}
+              disabled={isSubmitting}
             >
               GET IN THERE!
             </IonButton>
