@@ -15,7 +15,7 @@ function Login(props) {
   const { handleSubmit, handleChange, values, isSubmitting } = useForm(INITIAL_STATE, validateLogin, authenticateUser);
   const [busy, setBusy] = React.useState(false);
 
-  async function authenticateUser(props) {
+  async function authenticateUser() {
     setBusy(true);
     const { email, password } = values;
     try {

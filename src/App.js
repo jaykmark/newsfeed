@@ -18,7 +18,7 @@ import EditProfile from './pages/Auth/EditProfile';
 import Signup from './pages/Auth/Signup';
 import Login from './pages/Auth/Login';
 import ForgotPassword from './pages/Auth/ForgotPassword';
-import useAuth from './context/UserContext';
+import useAuth from './hooks/useAuth';
 import UserContext from './contexts/UserContext';
 
 /* Core CSS required for Ionic components to work properly */
